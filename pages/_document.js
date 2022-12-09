@@ -8,7 +8,7 @@ export default function Document() {
         <meta property="og:description" content="Generate travel itineraries for free" key="description"/>
         <meta
           property="og:image"
-          content="https://github.com/manapixels/travel-itinerary-generator-gpt3/blob/main/assets/screenshot-for-web.png"
+          content="https://github.com/manapixels/travel-itinerary-generator-gpt3/blob/main/assets/screenshot-for-web.png?raw=true"
         />
         <meta name="twitter:card" content="summary_large_image"></meta>
       </Head>

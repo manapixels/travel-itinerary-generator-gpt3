@@ -43,7 +43,7 @@ const Home = () => {
       prompt += 'and give me a daily summary of the above points into a paragraph or two.\n'
 
       console.log('Calling OpenAI with prompt...')
-      console.log(prompt)
+      // console.log(prompt)
 
       const response = await fetch('/api/generate', {
          method: 'POST',

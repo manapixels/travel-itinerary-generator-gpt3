@@ -31,7 +31,7 @@ body {
     gap: 10px;
     height: 100vh;
     width: 600px;
-    
+
     overflow: auto;
     padding: 50px;
     position: relative;
@@ -47,7 +47,7 @@ body {
     flex-flow: column nowrap;
     gap: 10px;
     height: 100vh;
-    
+
     overflow: auto;
     padding: 50px;
     position: relative;
@@ -55,7 +55,7 @@ body {
     gap: 35px;
 }
 
-.header {    
+.header {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -74,6 +74,7 @@ body {
     line-height: 1.2em;
     margin: 0;
 }
+
 .header-subtitle h2 {
     font-size: 16px;
     font-style: normal;
@@ -94,7 +95,7 @@ body {
     width: min-content;
 }
 
-.prompt-box, input[type=number]{
+.prompt-box, input[type=number] {
     border-bottom-width: 1px;
     border-color: rgba(255, 255, 255, 0.1);
     border-left-width: 1px;
@@ -125,6 +126,7 @@ body {
     text-decoration: none;
     text-transform: none;
 }
+
 .areas-of-interests .item {
     border-bottom-width: 2px;
     border-color: rgba(255, 255, 255, 0.1);
@@ -147,17 +149,19 @@ body {
 .areas-of-interests .item:hover {
     border-color: rgba(255, 255, 255, 0.6);
 }
+
 .areas-of-interests .item.selected {
     border-color: rgba(255, 255, 255, 0.6);
     color: rgba(255, 255, 255, 0.9);
 }
+
 textarea {
     font-family: 'Manrope', sans-serif;
 }
 
 
 .prompt-box:focus {
-    border-color:rgba(255, 255, 255, 0.75)
+    border-color: rgba(255, 255, 255, 0.75)
 }
 
 
@@ -359,6 +363,111 @@ textarea {
     color: rgba(255, 255, 255, 0.85);
 }
 
+/* Loading ring animation */
+.loader {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 2px solid #FFF;
+    border-right: 2px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.pushable {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+}
+
+.shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: rgba(6, 78, 59, 0.8);
+    will-change: transform;
+    transform: translateY(2px);
+    transition:
+        transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+.edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(to left,
+            rgb(6 78 59) 0% rgb(4 120 87) 8% rgb(4 120 87) 92% rgb(6 78 59) 100%);
+}
+
+.front {
+    display: block;
+    position: relative;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    color: white;
+    background: rgb(4 120 87);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition:
+        transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+.pushable:hover {
+    filter: brightness(110%);
+}
+
+.pushable:hover .front {
+    transform: translateY(-6px);
+    transition:
+        transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+}
+
+.pushable:hover .shadow {
+    transform: translateY(2px);
+    transition:
+        transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+}
+
+.pushable:focus:not(:focus-visible) {
+    outline: none;
+}
+
+select option {
+    color: rgba(0, 0, 0, 0.9);
+}
+
 @media (min-width: 810px) and (max-width: 1199px) {
     .container {
         max-width: 600px;
@@ -392,144 +501,33 @@ textarea {
 }
 
 @media (max-width: 600px) {
-    .container {
-        max-width: 400px;
+    .container-left, .container-right {
         width: 100%;
+        padding: 1.5rem;
     }
 
     .header-title h1 {
-        font-size: 50px;
-    }
-
-    .header-subtitle h2 {
-        text-align: center;
+        font-size: 38px;
     }
 
     .key-stroke, .or {
         display: none;
     }
 
-    .prompt-buttons {
-        justify-content: center;
+    .pushable {
+        width: 100%;
+    }
+
+    .front {
+        padding: 18px 42px;
     }
 
     .prompt-container {
-        max-width: 400px;
         width: 100%;
+        padding-left: 0;
     }
 
     .prompt-box {
         width: 100%;
     }
 }
-
-
-
- /* Loading ring animation */
-.loader {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: inline-block;
-    border-top: 2px solid #FFF;
-    border-right: 2px solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.pushable {
-    position: relative;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    outline-offset: 4px;
-    transition: filter 250ms;
-  }
-  .shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: rgba(6, 78, 59, 0.8);
-    will-change: transform;
-    transform: translateY(2px);
-    transition:
-      transform
-      600ms
-      cubic-bezier(.3, .7, .4, 1);
-  }
-  .edge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: linear-gradient(
-      to left,
-      rgb(6 78 59) 0%
-      rgb(4 120 87) 8%
-      rgb(4 120 87) 92%
-      rgb(6 78 59) 100%
-    );
-  }
-  .front {
-    display: block;
-    position: relative;
-    padding: 12px 42px;
-    border-radius: 12px;
-    font-size: 1.05rem;
-    color: white;
-    background: rgb(4 120 87);
-    will-change: transform;
-    transform: translateY(-4px);
-    transition:
-      transform
-      600ms
-      cubic-bezier(.3, .7, .4, 1);
-  }
-  .pushable:hover {
-    filter: brightness(110%);
-  }
-  .pushable:hover .front {
-    transform: translateY(-6px);
-    transition:
-      transform
-      250ms
-      cubic-bezier(.3, .7, .4, 1.5);
-  }
-  .pushable:active .front {
-    transform: translateY(-2px);
-    transition: transform 34ms;
-  }
-  .pushable:hover .shadow {
-    transform: translateY(2px);
-    transition:
-      transform
-      250ms
-      cubic-bezier(.3, .7, .4, 1.5);
-  }
-  .pushable:active .shadow {
-    transform: translateY(1px);
-    transition: transform 34ms;
-  }
-  .pushable:focus:not(:focus-visible) {
-    outline: none;
-  }
-
-  select option {
-    color: rgba(0, 0, 0, 0.9);
-  }

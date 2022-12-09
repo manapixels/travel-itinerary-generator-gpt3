@@ -1,4 +1,4 @@
-import { useState, memo } from 'react'
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import buildspaceLogo from '../assets/buildspace-logo.png'
 import { countryList } from '../assets/countryList'
@@ -25,6 +25,15 @@ const Home = () => {
    const [apiOutput, setApiOutput] = useState('')
    const [isGenerating, setIsGenerating] = useState(false)
 
+   const divRef = useRef(null); 
+  
+  const scrollToDiv = () => { 
+    window.scrollTo({ 
+      top: divRef.current.offsetTop, 
+      behavior: 'smooth' 
+    }); 
+  }; 
+
    const callGenerateEndpoint = async () => {
       setIsGenerating(true)
 
@@ -50,11 +59,12 @@ const Home = () => {
 
       setApiOutput(`${output.text}`)
       setIsGenerating(false)
+      scrollToDiv()
    }
 
    return (
       <div className="root">
-         <div className="flex w-full">
+         <div className="flex max-[600px]:flex-col w-full">
             <div className="container-left">
                <div className="header">
                   <div className="header-title">
@@ -98,7 +108,7 @@ const Home = () => {
                            display: 'inline-block',
                            marginRight: '.8rem',
                         }}
-                     ></div>
+                     >
                      {popularCountries.map((i) => (
                         <button
                            className={`item ${selectedCountry.includes(i) && 'selected'}`}
@@ -110,6 +120,7 @@ const Home = () => {
                            {i}
                         </button>
                      ))}
+                     </div>
                   </div>
                   <div className="flex w-100 mt-4">
                      <div
@@ -190,7 +201,10 @@ const Home = () => {
                         <span className="edge"></span>
                         <div className="front">
                            {isGenerating ? (
-                              <span className="loader"></span>
+                              <div>
+                                <span className="loader mr-2"></span>
+                                <span>Applying magic now...</span>
+                              </div>
                            ) : (
                               <span className="font-semibold">Generate</span>
                            )}
@@ -199,12 +213,12 @@ const Home = () => {
                   </div>
                </div>
             </div>
-            <div className="container-right">
+            <div className="container-right" ref={divRef}>
                {apiOutput && (
                   <div className="output">
                      <div className="output-header-container">
                         <div className="output-header">
-                           <h3>Your Unique Itinerary</h3>
+                           <h3>Your Itinerary</h3>
                         </div>
                      </div>
                      <div className="output-content">

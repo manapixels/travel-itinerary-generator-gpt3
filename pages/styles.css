@@ -1,16 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap');
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Manrope', sans-serif;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .root {
     display: flex;
     place-content: center flex-start;
     align-items: center;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(15 23 42);
     flex-flow: column nowrap;
     gap: 10px;
     height: 100vh;
@@ -19,28 +23,43 @@ body {
     position: relative;
 }
 
-.container {
+.container-left {
     display: flex;
     place-content: center flex-start;
-    align-items: center;
     flex: 0 0 auto;
     flex-flow: column nowrap;
     gap: 10px;
-    height: fit-content;
-    max-width: 975px;
+    height: 100vh;
+    width: 600px;
+    
+    overflow: auto;
+    padding: 50px;
+    position: relative;
+    gap: 35px;
+    background: rgb(10, 15, 24);
+}
+
+.container-right {
+    display: flex;
+    place-content: center flex-start;
+    align-items: center;
+    flex: 1;
+    flex-flow: column nowrap;
+    gap: 10px;
+    height: 100vh;
+    
     overflow: auto;
     padding: 50px;
     position: relative;
     width: auto;
-    gap: 64px;
+    gap: 35px;
 }
 
 .header {    
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: center;
-    color: #FFF
+    color: #FFF;
 }
 
 .header-title {
@@ -51,15 +70,12 @@ body {
 .header-title h1 {
     width: 100%;
     font-weight: 700;
-    font-size: 72px;
-    letter-spacing: -4px;
+    font-size: 35px;
     line-height: 1.2em;
-    text-align: center;
     margin: 0;
 }
-
 .header-subtitle h2 {
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 1.4em;
@@ -68,17 +84,17 @@ body {
 
 .prompt-container {
     place-content: flex-end center;
-    align-items: center;
     display: flex;
     flex: 0 0 auto;
     flex-flow: column nowrap;
     gap: 16px;
     height: min-content;
     padding: 0px;
+    padding-left: 1.5rem;
     width: min-content;
 }
 
-.prompt-box {
+.prompt-box, input[type=number]{
     border-bottom-width: 1px;
     border-color: rgba(255, 255, 255, 0.1);
     border-left-width: 1px;
@@ -93,12 +109,9 @@ body {
     flex: 0 0 auto;
     flex-flow: column nowrap;
     gap: 10px;
-    height: 150px;
     overflow: hidden;
     padding: 20px;
     position: relative;
-    width: 610px;
-    max-width: 1200px;
     will-change: transform;
     overflow: auto;
     outline: none;
@@ -112,7 +125,32 @@ body {
     text-decoration: none;
     text-transform: none;
 }
+.areas-of-interests .item {
+    border-bottom-width: 2px;
+    border-color: rgba(255, 255, 255, 0.1);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-style: solid;
+    border-top-width: 2px;
+    padding: 8px 12px;
+    position: relative;
+    line-height: 1.6em;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    text-align: start;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    margin-right: .5rem;
+    margin-bottom: 0.5rem;
+}
 
+.areas-of-interests .item:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+.areas-of-interests .item.selected {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
+}
 textarea {
     font-family: 'Manrope', sans-serif;
 }
@@ -132,7 +170,6 @@ textarea {
     flex-flow: row nowrap;
     gap: 12px;
     height: min-content;
-    overflow: hidden;
     padding: 0px;
     position: relative;
     width: 100%;
@@ -234,7 +271,7 @@ textarea {
     font-weight: 700;
     letter-spacing: -0.5px;
     line-height: 1em;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.5);
     padding: 12px;
     text-decoration: none;
 }
@@ -265,7 +302,7 @@ textarea {
 }
 
 .grow:hover {
-    transform: scale(1.1);
+    transform: scale(1.02);
 }
 
 .output {
@@ -276,15 +313,12 @@ textarea {
     flex-flow: column nowrap;
     gap: 10px;
     height: min-content;
-    max-width: 1200px;
-    overflow: hidden;
     position: relative;
     width: 100%;
 }
 
 .output-header-container {
     place-content: center;
-    align-items: center;
     display: flex;
     flex: 0 0 auto;
     flex-flow: column nowrap;
@@ -321,9 +355,8 @@ textarea {
 }
 
 .output-content p {
-    text-align: center;
     white-space: pre-line;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.85);
 }
 
 @media (min-width: 810px) and (max-width: 1199px) {
@@ -413,3 +446,90 @@ textarea {
         transform: rotate(360deg);
     }
 }
+
+.pushable {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+  }
+  .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: rgba(6, 78, 59, 0.8);
+    will-change: transform;
+    transform: translateY(2px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+  .edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+      to left,
+      rgb(6 78 59) 0%
+      rgb(4 120 87) 8%
+      rgb(4 120 87) 92%
+      rgb(6 78 59) 100%
+    );
+  }
+  .front {
+    display: block;
+    position: relative;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    color: white;
+    background: rgb(4 120 87);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+  .pushable:hover {
+    filter: brightness(110%);
+  }
+  .pushable:hover .front {
+    transform: translateY(-6px);
+    transition:
+      transform
+      250ms
+      cubic-bezier(.3, .7, .4, 1.5);
+  }
+  .pushable:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+  }
+  .pushable:hover .shadow {
+    transform: translateY(2px);
+    transition:
+      transform
+      250ms
+      cubic-bezier(.3, .7, .4, 1.5);
+  }
+  .pushable:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+  }
+  .pushable:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  select option {
+    color: rgba(0, 0, 0, 0.9);
+  }

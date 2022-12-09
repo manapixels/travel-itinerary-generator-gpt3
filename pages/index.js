@@ -12,8 +12,8 @@ import {
 const popularCountries = ['Japan', 'Italy', 'France', 'Spain', 'Thailand']
 const months = ['Any month', 'January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const basePrompt = "Write me an itinerary for"
-const addHotelsPrompt = ", best hotels to stay in based on proximity to attractions"
-const addRestaurantsPrompt = ", two good local restaurants per day that locals love (I don't need the address, but I want the shortened Google map links, as well as the restaurant names in local language). "
+const addHotelsPrompt = "- Hotel (prefer not to change it unless traveling to another city)\n"
+const addRestaurantsPrompt = "- 2 Restaurants, one for lunch and another for dinner, with shortened Google Map links\n"
 
 const Home = () => {
    const [duration, setDuration] = useState(7)
@@ -37,10 +37,10 @@ const Home = () => {
    const callGenerateEndpoint = async () => {
       setIsGenerating(true)
 
-      let prompt = `${basePrompt} ${duration} days to ${selectedCountry} in the coming ${selectedMonth}, in Paul Graham style. Give me a summary of the weather in that month and 5 things to take note about this country's culture. This itinerary should include which attractions are worth visiting, underrated attractions`
+      let prompt = `${basePrompt} ${duration} days to ${selectedCountry} in the coming ${selectedMonth}. Describe the weather that month, and also 5 things to take note about this country's culture. Keep to a maximum travel area to the size of Hokkaido, if possible, to minimize traveling time between cities.\n\nFor each day, list me the following:\n- Attractions suitable for that season\n`
       if (hotels) prompt += addHotelsPrompt
       if (restaurants) prompt += addRestaurantsPrompt
-      prompt += 'The itinerary should not be rushed. Show the fastest transport modes between destinations and their prices.\n'
+      prompt += 'and give me a daily summary of the above points into a paragraph or two.\n'
 
       console.log('Calling OpenAI with prompt...')
       console.log(prompt)
